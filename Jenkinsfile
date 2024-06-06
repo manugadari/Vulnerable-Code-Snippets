@@ -7,7 +7,7 @@ pipeline {
         git 'https://github.com/manugadari/Vulnerable-Code-Snippets'
         git branch: 'feature-1', url: 'https://github.com/manugadari/Vulnerable-Code-Snippets'
         sh'git checkout feature-1'
-        sh'git diff --name-only feature-1 master >> changes.py'
+        sh'git diff --name-only feature-1 master >> changes.json'
       }
     } 
     stage('Authorize Snyk CLI') {
