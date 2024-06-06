@@ -20,7 +20,7 @@ pipeline {
 
         stage('SAST SCAN for modified files') {
             steps {
-                sh 'snyk code test changes.py'
+                sh 'snyk code test changes.json'
                 }
             }
     
