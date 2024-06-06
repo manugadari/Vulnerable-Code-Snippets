@@ -21,6 +21,7 @@ pipeline {
                     sh "echo ${modifiedFiles} | xargs -I {} sh -c 'mkdir modified_files/{} 2>nul && cp {} modified_files/{}'"
                 }
             }
+        }
     stage('Authorize Snyk CLI') {
             steps {
                 withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
