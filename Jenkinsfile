@@ -5,11 +5,14 @@ pipeline {
     stage('check out') {
       steps {
         git 'https://github.com/manugadari/Vulnerable-Code-Snippets'
-        def modifiedFiles = sh(script: "git diff --name-only master feature", returnStdout: true).trim(){
         sh'git diff --name-only feature-1 master'
-        }
       }
     } 
+    stage('get modifiled files in a floder') {
+            steps {
+                def modifiedFiles = sh(script: "git diff --name-only master feature", returnStdout: true).trim()
+             }
+          }
     stage('Authorize Snyk CLI') {
             steps {
                 withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
