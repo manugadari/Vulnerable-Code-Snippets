@@ -7,8 +7,7 @@ pipeline {
         git 'https://github.com/manugadari/Vulnerable-Code-Snippets'
         git branch: 'feature-1', url: 'https://github.com/manugadari/Vulnerable-Code-Snippets'
         sh'git checkout feature-1'
-        sh'mkdir changes'
-        sh'git diff --name-only feature-1 master >> changes '
+        sh'git diff --name-only feature-1 master >> IDOR '
       }
     } 
     stage('Authorize Snyk CLI') {
@@ -21,7 +20,7 @@ pipeline {
 
         stage('SAST SCAN for modified files') {
             steps {
-                sh 'snyk code test changes '
+                sh 'snyk code test IDOR'
                 }
             }
     
