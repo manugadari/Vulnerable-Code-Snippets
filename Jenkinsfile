@@ -20,7 +20,7 @@ pipeline {
 
         stage('SAST SCAN for modified files') {
             steps {
-                sh 'snyk code test '
+                sh 'snyk code test git diff --name-only feature-1 master '
                 }
             }
     
