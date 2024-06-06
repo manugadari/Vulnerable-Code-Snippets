@@ -8,11 +8,28 @@ pipeline {
         sh'git diff --name-only feature-1 master'
       }
     } 
-    stage('get modifiled files in a floder') {
+    stage('Get Modified Files') {
             steps {
-                def modifiedFiles = sh(script: "git diff --name-only master feature", returnStdout: true).trim()
-             }
-          }
+                script {
+                    // Fetch the latest changes
+                    sh 'git fetch origin'
+
+                    // Get the list of modified files
+                    def modifiedFiles = sh(script: "git diff --name-only master feature-1", returnStdout: true).trim()
+
+                    // Copy the modified files to the output directory
+                    modifiedFiles.split('\n').each { file ->
+                        def dirPath = file.contains('/') ? file.substring(0, file.lastIndexOf('/')) : ''
+                        sh """
+                            mkdir -p modified_files/${dirPath}
+                            cp --parents ${file} modified_files/
+                        """
+                    }
+                }
+            }
+        }
+    }
+
     stage('Authorize Snyk CLI') {
             steps {
                 withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
