@@ -6,6 +6,7 @@ pipeline {
       steps {
         git 'https://github.com/manugadari/Vulnerable-Code-Snippets'
         sh'git diff --name-only feature-1 master'
+        def modifiedFiles = sh(script: "git diff --name-only master feature", returnStdout: true).trim()
       }
     } 
     stage('Authorize Snyk CLI') {
