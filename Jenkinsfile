@@ -6,11 +6,7 @@ pipeline {
       steps {
         git 'https://github.com/manugadari/Vulnerable-Code-Snippets'
         sh'''git diff --name-only feature-1 master'
-        '''
-           (for /F "delims=" %f in ('git diff --name-only main feature') do (
-                mkdir "modified_files\%~pf" 2>nul
-                copy "%f" "modified_files\%f")  ) '''
-
+        sh 'git diff --name-only master feature-1 | xargs -I {} sh -c "mkdir modified_files/{} 2>nul && cp {} modified_files/{}"'
       }
     } 
     
