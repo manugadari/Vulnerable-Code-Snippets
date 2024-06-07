@@ -6,9 +6,9 @@ pipeline {
       steps {
         git 'https://github.com/manugadari/Vulnerable-Code-Snippets'
         git branch: 'feature-1', url: 'https://github.com/manugadari/Vulnerable-Code-Snippets'{
-        sh ' for /F "delims=" %f in ('git diff --name-only master feature-1') do (
+        sh ''' for /F "delims=" %f in ('git diff --name-only master feature-1') do (
     mkdir "modified_files\%~pf" 2>nul
-    copy "%f" "modified_files\%f") '
+    copy "%f" "modified_files\%f") '''
         }
       }
     } 
