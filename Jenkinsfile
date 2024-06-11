@@ -4,10 +4,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        git 'https://github.com/manugadari/Vulnerable-Code-Snippets'
-        git branch: 'feature-1', url: 'https://github.com/manugadari/Vulnerable-Code-Snippets'
-        sh'git checkout feature-1'
-        sh'git diff master feature-1 >> changes.py'
+        sh'python snyk.py'
       }
     } 
     stage('Authorize Snyk CLI') {
